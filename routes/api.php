@@ -35,4 +35,10 @@ Route::get('/delete-category/{category_id}', 'App\Http\Controllers\CategoryContr
 Route::get('/all-manufacture', 'App\Http\Controllers\ManufactureController@all_manufacture');
 Route::post('/save-manufacture', 'App\Http\Controllers\ManufactureController@save_manufacture');
 Route::put('/update-manufacture/{manufacture_id}', 'App\Http\Controllers\ManufactureController@update_manufacture');
-Route::get('/delete-manufacture/{manufacture_id}', 'App\Http\Controllers\ManufactureController@delete_manufacture');
+Route::get('/delete-manufacture/{manufacture_id}', 'App\Http\Controllers\ManufactureController@delete_manufacture');Route::get('/delete-manufacture/{manufacture_id}', 'App\Http\Controllers\ManufactureController@delete_manufacture');
+//Cart Route.........................
+Route::post('/add-to-cart', 'App\Http\Controllers\CartController@add_to_cart');
+Route::post('/update-cart', 'App\Http\Controllers\CartController@update_to_cart');
+Route::get('/delete-to-cart/{rowId}', 'App\Http\Controllers\CartController@delete_to_cart');
+
+//Checkout Route Here....................
