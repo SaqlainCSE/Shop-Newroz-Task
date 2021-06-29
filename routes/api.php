@@ -35,12 +35,11 @@ Route::get('/delete-category/{category_id}', 'App\Http\Controllers\CategoryContr
 Route::get('/all-manufacture', 'App\Http\Controllers\ManufactureController@all_manufacture');
 Route::post('/save-manufacture', 'App\Http\Controllers\ManufactureController@save_manufacture');
 Route::put('/update-manufacture/{manufacture_id}', 'App\Http\Controllers\ManufactureController@update_manufacture');
-Route::get('/delete-manufacture/{manufacture_id}', 'App\Http\Controllers\ManufactureController@delete_manufacture');Route::get('/delete-manufacture/{manufacture_id}', 'App\Http\Controllers\ManufactureController@delete_manufacture');
 Route::get('/delete-manufacture/{manufacture_id}', 'App\Http\Controllers\ManufactureController@delete_manufacture');
 
 //Cart Route.........................
 Route::post('/add-to-cart', 'App\Http\Controllers\CartController@add_to_cart');
-Route::post('/update-cart', 'App\Http\Controllers\CartController@update_to_cart');
+Route::put('/update-cart', 'App\Http\Controllers\CartController@update_to_cart');
 Route::get('/delete-to-cart/{rowId}', 'App\Http\Controllers\CartController@delete_to_cart');
 
 //Order Place Route..........................
@@ -58,3 +57,7 @@ Route::post('/customer_login', 'App\Http\Controllers\CheckoutController@customer
 
 //Shipping Information...................
 Route::post('/save-shipping-info', 'App\Http\Controllers\CheckoutController@save_shipping_info');
+
+//Invoice System.........................
+Route::get('/billReciept','App\Http\Controllers\RecieptController@index');
+Route::get('/getPrice/{id}', 'App\Http\Controllers\RecieptController@getPrice');
