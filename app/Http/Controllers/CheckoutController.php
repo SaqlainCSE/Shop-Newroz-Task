@@ -95,6 +95,7 @@ class CheckoutController extends Controller
             $order_details_data['product_id'] = $data->id;
             $order_details_data['product_name'] = $data->name;
             $order_details_data['product_price'] = $data->price;
+            $order_details_data['shipping_charge'] = $data->charge;
             $order_details_data['product_sales_quantity'] = $data->qty;
 
             DB::table('order_details')->insert($order_details_data);

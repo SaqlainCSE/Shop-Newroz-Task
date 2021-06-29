@@ -19,6 +19,7 @@ class CreateOrderDetailsTable extends Migration
             $table->integer('product_id');
             $table->string('product_name');
             $table->string('product_price');
+            $table->integer('shipping_charge')->default(60);
             $table->string('product_sales_quantity');
             $table->timestamps();
         });
