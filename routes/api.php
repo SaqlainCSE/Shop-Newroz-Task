@@ -50,6 +50,10 @@ Route::get('/manage-order', 'App\Http\Controllers\CheckoutController@manage_orde
 Route::get('/order-delete/{order_id}', 'App\Http\Controllers\CheckoutController@order_delete');
 Route::get('/order-pending/{order_id}', 'App\Http\Controllers\CheckoutController@order_pending');
 Route::get('/order-paid/{order_id}', 'App\Http\Controllers\CheckoutController@order_paid');
+Route::get('/order-delivery/{order_id}', 'App\Http\Controllers\CheckoutController@deliveryOrder');
+
+//Stock Manage................................
+Route::get('/stock', 'App\Http\Controllers\ProductController@stock_manage');
 
 //Customer Login, Registration Route Here.......
 Route::post('/customer_registration', 'App\Http\Controllers\CheckoutController@customer_registration');

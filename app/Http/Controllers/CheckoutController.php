@@ -139,7 +139,7 @@ class CheckoutController extends Controller
                             ->select('orders.*','customers.customer_name')
                             ->get();
         
-        //echo $result;
+        //echo $data;
         return response()->json([
             'success' => true,
             'message' => 'All order Info',
@@ -151,10 +151,33 @@ class CheckoutController extends Controller
     {  
         $data = DB::table('orders')->where('order_id',$order_id)->update(['order_status' => 'pending']);
 
-        //echo $result;
+        //echo $data;
         return response()->json([
             'success' => true,
             'message' => 'Order Pending!!',
+            'data' => $data,
+        ], 200);
+    }
+
+    public function deliveryOrder($order_id)
+    {  
+        $order = DB::table('orders')->where('order_id',$order_id)->update(['order_status' => 'pending']);
+
+        $orderdetails = DB::table('order_details')->where('order_id',$order_id)->get();
+        foreach($orderdetails as $orderdetail)
+        {
+            $products = DB::table('products')->where('order_id',$orderdetail->product_id)->first();
+            $mainqty = $products->product_quantity;
+            $minusqty = $orderdetail->product_sales_quantity;
+
+            $nowqty = $mainqty - $minusqty;
+            $data = DB::table('products')->where('order_id',$orderdetail->product_id)->update(['product_quantity' => $nowqty]);
+        }
+
+        //echo $result;
+        return response()->json([
+            'success' => true,
+            'message' => 'Order Delivered!!',
             'data' => $data,
         ], 200);
     }

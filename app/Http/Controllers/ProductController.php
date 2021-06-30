@@ -127,4 +127,20 @@ class ProductController extends Controller
         ], 200);
     }
 
+    public function stock_manage()
+    {
+        $product_stock = DB::table('products')
+                        ->join('categorys','products.category_id','categorys.category_id')
+                        ->join('manufactures','products.manufacture_id','manufactures.manufacture_id')
+                        ->select('products.*','categorys.category_name','manufactures.manufacture_name')
+                        ->where('product_quantity',0)
+                        ->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Products stock fetched',
+            'data' => $product_stock,
+        ], 200);
+    }
+
 }
