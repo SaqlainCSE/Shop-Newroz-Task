@@ -52,6 +52,10 @@ Route::get('/order-pending/{order_id}', 'App\Http\Controllers\CheckoutController
 Route::get('/order-paid/{order_id}', 'App\Http\Controllers\CheckoutController@order_paid');
 Route::get('/order-delivery/{order_id}', 'App\Http\Controllers\CheckoutController@deliveryOrder');
 
+//Offer.......................................
+Route::post('/coupon', 'App\Http\Controllers\CouponsController@store');
+Route::delete('/coupon', 'App\Http\Controllers\CouponsController@destroy');
+
 //Stock Manage................................
 Route::get('/stock', 'App\Http\Controllers\ProductController@stock_manage');
 
