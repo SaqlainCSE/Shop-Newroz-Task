@@ -13,7 +13,7 @@ class ProductController extends Controller
         $all_product_info = DB::table('products')
             ->join('categorys', 'products.category_id', 'categorys.category_id')
             ->join('manufactures', 'products.manufacture_id', 'manufactures.manufacture_id')
-            ->join('similar_products', 'products.similar_products_id', 'similar_products.similar_products_id')
+            ->join('similar_products', 'products.similar_product_id', 'similar_products.similar_product_id')
             ->select('products.*', 'categorys.category_name', 'manufactures.manufacture_name')
             ->get();
 
@@ -127,7 +127,7 @@ class ProductController extends Controller
         $product_stock = DB::table('products')
             ->join('categorys', 'products.category_id', 'categorys.category_id')
             ->join('manufactures', 'products.manufacture_id', 'manufactures.manufacture_id')
-            ->join('similar_products', 'products.similar_products_id', 'similar_products.similar_products_id')
+            ->join('similar_products', 'products.similar_product_id', 'similar_products.similar_product_id')
             ->select('products.*', 'categorys.category_name', 'manufactures.manufacture_name')
             ->where('product_quantity', 0)
             ->get();

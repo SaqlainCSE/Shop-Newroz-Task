@@ -25,6 +25,12 @@ Route::post('/save-product', 'App\Http\Controllers\ProductController@save_produc
 Route::put('/update-product/{product_id}', 'App\Http\Controllers\ProductController@update_product');
 Route::get('/delete-product/{product_id}', 'App\Http\Controllers\ProductController@delete_product');
 
+//Similar Product route....................
+Route::get('/all-similar-product', 'App\Http\Controllers\SimilarProductController@all_similar_product');
+Route::post('/save-similar-product', 'App\Http\Controllers\SimilarProductController@save_similar_product');
+Route::put('/update-similar-product/{similar_product_id}', 'App\Http\Controllers\SimilarProductController@update_similar_product');
+Route::get('/delete-similar-product/{similar_product_id}', 'App\Http\Controllers\SimilarProductController@delete_similar_product');
+
 //Category Route...........
 Route::get('/all-category', 'App\Http\Controllers\CategoryController@all_category');
 Route::post('/save-category', 'App\Http\Controllers\CategoryController@save_category');
@@ -44,7 +50,7 @@ Route::get('/delete-to-cart/{rowId}', 'App\Http\Controllers\CartController@delet
 
 //Order Place Route..........................
 Route::post('/order-place', 'App\Http\Controllers\CheckoutController@order_place');
- 
+
 //Manage Order...............................
 Route::get('/manage-order', 'App\Http\Controllers\CheckoutController@manage_order');
 Route::get('/order-delete/{order_id}', 'App\Http\Controllers\CheckoutController@order_delete');
@@ -67,5 +73,5 @@ Route::post('/customer_login', 'App\Http\Controllers\CheckoutController@customer
 Route::post('/save-shipping-info', 'App\Http\Controllers\CheckoutController@save_shipping_info');
 
 //Invoice System.........................
-Route::get('/billReciept','App\Http\Controllers\RecieptController@index');
+Route::get('/billReciept', 'App\Http\Controllers\RecieptController@index');
 Route::get('/getPrice/{id}', 'App\Http\Controllers\RecieptController@getPrice');
