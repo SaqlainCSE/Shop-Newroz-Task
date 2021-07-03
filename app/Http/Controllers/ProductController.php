@@ -10,44 +10,42 @@ class ProductController extends Controller
 
     public function all_product()
     {
-        $all_product_info=DB::table('products')
-                            ->join('categorys','products.category_id','categorys.category_id')
-                            ->join('manufactures','products.manufacture_id','manufactures.manufacture_id')
-                            ->select('products.*','categorys.category_name','manufactures.manufacture_name')
-                            ->get();
-        
+        $all_product_info = DB::table('products')
+            ->join('categorys', 'products.category_id', 'categorys.category_id')
+            ->join('manufactures', 'products.manufacture_id', 'manufactures.manufacture_id')
+            ->join('similar_products', 'products.similar_products_id', 'similar_products.similar_products_id')
+            ->select('products.*', 'categorys.category_name', 'manufactures.manufacture_name')
+            ->get();
+
         //echo $all_product_info;
         return response()->json([
             'success' => true,
             'message' => 'all products fetched',
             'data' => $all_product_info,
         ], 200);
-        
     }
 
     public function save_product(Request $request)
     {
-        $data=array();
-        $data['product_name']=$request->product_name;
-        $data['category_id']=$request->category_id;
-        $data['manufacture_id']=$request->manufacture_id;
-        $data['product_description']=$request->product_description;
-        $data['product_price']=$request->product_price;
-        $data['product_weight']=$request->product_weight;
+        $data = array();
+        $data['product_name'] = $request->product_name;
+        $data['category_id'] = $request->category_id;
+        $data['manufacture_id'] = $request->manufacture_id;
+        $data['product_description'] = $request->product_description;
+        $data['product_price'] = $request->product_price;
+        $data['product_weight'] = $request->product_weight;
 
-        $image=$request->file('product_image');
-        if($image)
-        {
-            $image_name=time();
-            $ext=strtolower($image->getClientOriginalExtension());
-            $image_full_name=$image_name.'.'.$ext;
-            $upload_path='image/';
-            $image_url=$upload_path.$image_full_name;
-            $success=$image->move($upload_path,$image_full_name);
+        $image = $request->file('product_image');
+        if ($image) {
+            $image_name = time();
+            $ext = strtolower($image->getClientOriginalExtension());
+            $image_full_name = $image_name . '.' . $ext;
+            $upload_path = 'image/';
+            $image_url = $upload_path . $image_full_name;
+            $success = $image->move($upload_path, $image_full_name);
 
-            if($success)
-            {
-                $data['product_image']=$image_url;
+            if ($success) {
+                $data['product_image'] = $image_url;
                 //echo $data;
 
                 DB::table('products')->insert($data);
@@ -57,11 +55,8 @@ class ProductController extends Controller
                     'message' => 'Added Successfully!!',
                     'data' => $data,
                 ], 200);
-                
             }
         }
-  
-
     }
 
     // public function edit_product($product_id)
@@ -89,17 +84,17 @@ class ProductController extends Controller
             ], 404);
         }
 
-        $data=array();
-        $data['product_name']=$request->product_name;
-        $data['category_id']=$request->category_id;
-        $data['manufacture_id']=$request->manufacture_id;
-        $data['product_short_description']=$request->product_short_description;
-        $data['product_weight']=$request->product_weight;
-        $data['product_size']=$request->product_size;
+        $data = array();
+        $data['product_name'] = $request->product_name;
+        $data['category_id'] = $request->category_id;
+        $data['manufacture_id'] = $request->manufacture_id;
+        $data['product_short_description'] = $request->product_short_description;
+        $data['product_weight'] = $request->product_weight;
+        $data['product_size'] = $request->product_size;
         //echo $data;
 
         DB::table('products')->where('product_id', $product_id)->update($data);
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Updated Successfully!!',
@@ -130,11 +125,12 @@ class ProductController extends Controller
     public function stock_manage()
     {
         $product_stock = DB::table('products')
-                        ->join('categorys','products.category_id','categorys.category_id')
-                        ->join('manufactures','products.manufacture_id','manufactures.manufacture_id')
-                        ->select('products.*','categorys.category_name','manufactures.manufacture_name')
-                        ->where('product_quantity',0)
-                        ->get();
+            ->join('categorys', 'products.category_id', 'categorys.category_id')
+            ->join('manufactures', 'products.manufacture_id', 'manufactures.manufacture_id')
+            ->join('similar_products', 'products.similar_products_id', 'similar_products.similar_products_id')
+            ->select('products.*', 'categorys.category_name', 'manufactures.manufacture_name')
+            ->where('product_quantity', 0)
+            ->get();
 
         return response()->json([
             'success' => true,
@@ -142,5 +138,4 @@ class ProductController extends Controller
             'data' => $product_stock,
         ], 200);
     }
-
 }
